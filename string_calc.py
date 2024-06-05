@@ -1,11 +1,12 @@
+import re
 import unittest
 
 def add_string(string_to_calc):
     if string_to_calc == '':
         """ Returns 0 if empty string is passed. """
         return 0
-    # Breaks the string in to a list of stringified numbers, maps them into an object and converts them into int
-    list_of_numbers = map(int, string_to_calc.split(','))
+    # split the string_to_calc based on the delimiters (',' , '\n')
+    list_of_numbers = map(int, re.split(r',|\n', string_to_calc))
     
     return sum(list_of_numbers)
     
