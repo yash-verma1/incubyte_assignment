@@ -16,9 +16,14 @@ def add_string(string_to_calc):
     # string for regex to remove delimiters from string_to_calc
     delims = '|'.join(delim)
 
-    # split the string_to_calc based on the delimiters
-    list_of_numbers = map(int, re.split(r'{}'.format(delims), string_to_calc))
+    # generate a list of numbers after removing the delimiters
+    list_of_numbers = [int(num) for num in re.split(r'{}'.format(delims), string_to_calc)]
     
+    # check if there are any negative numbers in the list
+    negative_numbers = [str(x) for x in list_of_numbers if x < 0]
+
+    if negative_numbers:    # throw an exception
+        raise ValueError("Negatives not allowed: <{}>".format(', '.join(negative_numbers)))
     return sum(list_of_numbers)
         
 
@@ -47,6 +52,14 @@ class TestStringCalc(unittest.TestCase):
     def test_dynamic_delim(self):
         result = add_string("//;\n1;2")
         self.assertEqual(result, 3)    
+
+    def test_one_negative_number_in_string(self):
+        with self.assertRaisesRegex(ValueError, "Negatives not allowed: <-2>"):
+            add_string("1,-2")
+
+    def test_negative_numbers_in_string(self):
+        with self.assertRaisesRegex(ValueError, "Negatives not allowed: <-2, -4>"):
+            add_string("1,-2, 3, -4")
 
 
 if __name__ == '__main__':
