@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "round-1-incubyte"
+version = "0.1.0"
+description = "Assignment for Incubyte. More info can be found here - https://blog.incubyte.co/blog/tdd-assessment/"
+authors = ["Yash Verma <yashv9119@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
